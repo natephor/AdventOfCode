@@ -4,39 +4,26 @@ namespace AdventOfCode._2024.Day1;
 
 public class Day1
 {
-    private readonly string _fileContents = Utils.GetFileContentsByName("day1.txt");
+    private readonly string[] _lines = Utils.GetFileContentsByName("day1.txt");
 
     public void PrintPartOneSolution()
     {
-        Stopwatch watch = new Stopwatch();
-        watch.Start();
-        var numbers = _fileContents
-            .Split([' ', '\r', '\n'])
-            .Where(s => !string.IsNullOrWhiteSpace(s))
-            .Select(int.Parse);
-        
-        var counter = 0;
         var left = new List<int>();
         var right = new List<int>();
-        foreach (var number in numbers)
+        foreach (var line in _lines)
         {
-            if (counter % 2 == 0)
-                left.Add(number);
-            else
-                right.Add(number);
-            counter++;
+            var l = line.Split();
+            left.Add(int.Parse(l[0]));
+            right.Add(int.Parse(l[^1]));
         }
 
         left.Sort();
         right.Sort();
+        
         var sum = 0;
         for (int i = 0; i < left.Count; i++)
-        {
             sum += Math.Abs(left[i] - right[i]);
-        }
-
+        
         Console.WriteLine(sum);
-        watch.Stop();
-        Console.WriteLine($"Elapsed time: {watch.ElapsedMilliseconds}");
     }
 }

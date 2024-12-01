@@ -1,3 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using AdventOfCode._2024.Day1;
 
-Console.WriteLine("Hello, World!");
+var dayOne = new Day1();
+
+dayOne.PrintPartOneSolution();

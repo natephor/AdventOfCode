@@ -30,19 +30,7 @@ public class Day1
 
     public void PrintPartTwoSolution()
     {
-        var countKeys = leftColumn.Distinct();
-        var occurrences = countKeys
-            .ToDictionary(
-                k => k,
-                v => rightColumn.Count(r => r == v));
-        
-        var result = 0;
-        foreach (var number in leftColumn)
-        {
-            var similarityScore = number * occurrences[number];
-            result += similarityScore;
-        }
-
+        var result = leftColumn.Sum(number => number * rightColumn.Count(r => r == number));
         Console.WriteLine(result);
     }
 }

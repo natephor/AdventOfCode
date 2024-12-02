@@ -3,3 +3,4 @@
 var dayOne = new Day1();
 
 dayOne.PrintPartOneSolution();
+dayOne.PrintPartTwoSolution();

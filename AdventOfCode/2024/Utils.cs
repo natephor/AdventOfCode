@@ -2,7 +2,7 @@
 
 public static class Utils
 {
-    public static string[] GetFileContentsByName(string filename)
+    public static string[] GetLinesFromFile(string filename)
     {
         var sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var relativePath = $"2024{Path.DirectorySeparatorChar}Inputs{Path.DirectorySeparatorChar}{filename}";

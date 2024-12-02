@@ -1,29 +1,48 @@
-﻿using System.Diagnostics;
-
-namespace AdventOfCode._2024.Day1;
+﻿namespace AdventOfCode._2024.Day1;
 
 public class Day1
 {
-    private readonly string[] _lines = Utils.GetFileContentsByName("day1.txt");
+    private readonly string[] _lines = Utils.GetLinesFromFile("day1.txt");
+    private readonly List<int> leftColumn = [];
+    private readonly List<int> rightColumn = [];
+
+    public Day1()
+    {
+        foreach (var line in _lines)
+        {
+            string[] lineArr = line.Split();
+            leftColumn.Add(int.Parse(lineArr[0]));
+            rightColumn.Add(int.Parse(lineArr[^1]));
+        }
+    }
 
     public void PrintPartOneSolution()
     {
-        var left = new List<int>();
-        var right = new List<int>();
-        foreach (var line in _lines)
+        leftColumn.Sort();
+        rightColumn.Sort();
+
+        var locationSum = 0;
+        for (var i = 0; i < leftColumn.Count; i++)
+            locationSum += Math.Abs(leftColumn[i] - rightColumn[i]);
+
+        Console.WriteLine(locationSum);
+    }
+
+    public void PrintPartTwoSolution()
+    {
+        var countKeys = leftColumn.Distinct();
+        var occurrences = countKeys
+            .ToDictionary(
+                k => k,
+                v => rightColumn.Count(r => r == v));
+        
+        var result = 0;
+        foreach (var number in leftColumn)
         {
-            var l = line.Split();
-            left.Add(int.Parse(l[0]));
-            right.Add(int.Parse(l[^1]));
+            var similarityScore = number * occurrences[number];
+            result += similarityScore;
         }
 
-        left.Sort();
-        right.Sort();
-        
-        var sum = 0;
-        for (int i = 0; i < left.Count; i++)
-            sum += Math.Abs(left[i] - right[i]);
-        
-        Console.WriteLine(sum);
+        Console.WriteLine(result);
     }
 }
